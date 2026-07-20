@@ -6,7 +6,7 @@ import type {
 } from '@page-agent/core'
 import { useCallback, useRef, useState } from 'react'
 
-import { SubmitAgent, buildProductContext } from '@/agent/SubmitAgent'
+import { SubmitAgent, buildProductContext, getSiteHints } from '@/agent/SubmitAgent'
 import { getLanguage, getLLMConfig } from '@/lib/storage'
 import type { ProductProfile, SiteData } from '@/lib/types'
 
@@ -80,7 +80,8 @@ export function useSubmitAgent(): UseSubmitAgentResult {
 				'- Rewrite descriptions to be unique for this site — do not copy-paste the original text.',
 				'- Do NOT click the final submit/publish button. Let the user review and submit manually.',
 				'- If you encounter a required field with no matching product data, leave it empty and report it.',
-			].join('\n')
+			getSiteHints(site.name),
+		].join('\n')
 
 			try {
 				const result = await agent.execute(task)
@@ -124,7 +125,8 @@ export function useSubmitAgent(): UseSubmitAgentResult {
 				'- Rewrite descriptions to be unique for this site — do not copy-paste the original text.',
 				'- Do NOT click the final submit/publish button. Let the user review and submit manually.',
 				'- If you encounter a required field with no matching product data, leave it empty and report it.',
-			].join('\n')
+			getSiteHints(siteName),
+		].join('\n')
 
 			try {
 				const result = await agent.execute(task)

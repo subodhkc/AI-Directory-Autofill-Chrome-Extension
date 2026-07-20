@@ -18,6 +18,7 @@ interface SubmitFlowProps {
 	agentHistory: HistoricalEvent[]
 	agentError: string | null
 	onStartSubmit: () => void
+	onRetryOnCurrentTab: () => void
 	onStop: () => void
 	onMarkSubmitted: () => void
 	onSkip: () => void
@@ -118,6 +119,7 @@ export function SubmitFlow({
 	agentHistory,
 	agentError,
 	onStartSubmit,
+	onRetryOnCurrentTab,
 	onStop,
 	onMarkSubmitted,
 	onSkip,
@@ -256,6 +258,11 @@ export function SubmitFlow({
 							</p>
 						)}
 						<DebugLog history={agentHistory} />
+					{agentError && /login|sign.?in|auth/i.test(agentError) && (
+						<p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
+							{t('submitFlow.loginRequired')}
+						</p>
+					)}
 					</div>
 				)}
 
@@ -303,6 +310,11 @@ export function SubmitFlow({
 								{t('submitFlow.noSubmitUrl')}
 							</div>
 						)}
+					{isError && (
+						<Button variant="outline" size="sm" className="w-full" onClick={onRetryOnCurrentTab}>
+							{t('submitFlow.retryOnCurrentTab')}
+						</Button>
+					)}
 						<div className="flex gap-2">
 							{site.submit_url && (
 								<Button

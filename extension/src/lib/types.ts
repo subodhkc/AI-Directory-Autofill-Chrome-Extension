@@ -72,7 +72,7 @@ export interface LLMSettings {
 	model: string
 }
 
-export type ProviderKey = 'builtin' | 'openai' | 'deepseek' | 'custom'
+export type ProviderKey = 'builtin' | 'openai' | 'groq' | 'deepseek' | 'custom'
 
 /** Per-provider LLM configs + active provider selection */
 export interface ProviderConfigs {
@@ -88,7 +88,7 @@ export interface ExtSettings {
 }
 
 /** Message types for background <-> content script communication */
-export type MessageType = 'PAGE_CONTROL' | 'TAB_CONTROL' | 'TAB_CHANGE' | 'SUBMIT_CONTROL' | 'GET_STATUS'
+export type MessageType = 'PAGE_CONTROL' | 'TAB_CONTROL' | 'TAB_CHANGE' | 'SUBMIT_CONTROL' | 'GET_STATUS' | 'GET_ACTIVE_PRODUCT'
 
 export interface ExtMessage {
 	type: MessageType

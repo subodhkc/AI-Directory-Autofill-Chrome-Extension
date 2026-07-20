@@ -1,6 +1,7 @@
 import { handlePageControlMessage } from '@/agent/RemotePageController.background'
 import { handleTabControlMessage, setupTabChangeEvents } from '@/agent/TabsController.background'
-import { setFloatButtonEnabled } from '@/lib/storage'
+import { setFloatButtonEnabled, getActiveProductId } from '@/lib/storage'
+import { getProduct } from '@/lib/db'
 
 export default defineBackground(() => {
 	console.log('[Submit Agent] Background service worker started')
@@ -22,6 +23,8 @@ export default defineBackground(() => {
 			return handleFloatButtonToggle(message, sendResponse)
 		} else if (message.type === 'FLOAT_FILL') {
 			return handleFloatFill(message, sender, sendResponse)
+		} else if (message.type === 'GET_ACTIVE_PRODUCT') {
+			return handleGetActiveProduct(sendResponse)
 		} else {
 			sendResponse({ error: 'Unknown message type' })
 			return
@@ -109,6 +112,22 @@ function handleFloatButtonToggle(
 			}
 		})
 		sendResponse({ ok: true })
+	})
+	return true
+}
+
+function handleGetActiveProduct(
+	sendResponse: (response: unknown) => void
+): true {
+	getActiveProductId().then(async (productId) => {
+		if (!productId) {
+			sendResponse({ product: null })
+			return
+		}
+		const product = await getProduct(productId)
+		sendResponse({ product: product ?? null })
+	}).catch(() => {
+		sendResponse({ product: null })
 	})
 	return true
 }

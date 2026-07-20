@@ -16,11 +16,12 @@ interface SettingsPanelProps {
 const PROVIDER_LABELS: Record<ProviderKey, TranslationKey> = {
 	builtin: 'settings.providerBuiltin',
 	openai: 'settings.providerOpenAI',
+	groq: 'settings.providerGroq',
 	deepseek: 'settings.providerDeepSeek',
 	custom: 'settings.providerCustom',
 }
 
-const PROVIDER_ORDER: ProviderKey[] = ['builtin', 'openai', 'deepseek', 'custom']
+const PROVIDER_ORDER: ProviderKey[] = ['builtin', 'openai', 'groq', 'deepseek', 'custom']
 
 const TEST_ERROR_KEYS: Record<string, TranslationKey> = {
 	unreachable: 'settings.errUnreachable',
@@ -77,6 +78,7 @@ export function SettingsPanel({ onClose }: SettingsPanelProps) {
 	const [configs, setConfigs] = useState<Record<ProviderKey, LLMSettings>>({
 		builtin: { apiKey: '', baseUrl: '', model: '' },
 		openai: { apiKey: '', baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o-mini' },
+		groq: { apiKey: '', baseUrl: 'https://api.groq.com/openai/v1', model: 'llama-3.3-70b-versatile' },
 		deepseek: { apiKey: '', baseUrl: 'https://api.deepseek.com/v1', model: 'deepseek-chat' },
 		custom: { apiKey: '', baseUrl: '', model: '' },
 	})

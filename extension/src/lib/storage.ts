@@ -18,6 +18,7 @@ function defaultProviderConfigs(): ProviderConfigs {
 		configs: {
 			builtin: { ...EMPTY_LLM },
 			openai: { apiKey: '', baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o-mini' },
+			groq: { apiKey: '', baseUrl: 'https://api.groq.com/openai/v1', model: 'llama-3.3-70b-versatile' },
 			deepseek: { apiKey: '', baseUrl: 'https://api.deepseek.com/v1', model: 'deepseek-chat' },
 			custom: { ...EMPTY_LLM },
 		},

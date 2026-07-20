@@ -53,7 +53,7 @@ export class SubmitAgent extends PageAgentCore {
 			pageController: pageController as any,
 			customTools: { ...tabTools, ...submitTools },
 			customSystemPrompt: systemPrompt,
-			maxSteps: config.maxSteps ?? 30,
+			maxSteps: config.maxSteps ?? 50,
 
 			onBeforeTask: async (agent) => {
 				await tabsController.init(includeInitialTab)
@@ -125,5 +125,35 @@ export function buildProductContext(product: ProductProfile): string {
 		}
 	}
 
+	const assets: string[] = []
+	if (product.logoSquare) assets.push(`Logo (square): ${product.logoSquare}`)
+	if (product.logoBanner) assets.push(`Logo (banner): ${product.logoBanner}`)
+	if (product.screenshots?.length) {
+		product.screenshots.forEach((s, i) => assets.push(`Screenshot ${i + 1}: ${s}`))
+	}
+	if (assets.length > 0) {
+		lines.push('', '**Product Assets (for manual upload):**')
+		for (const a of assets) lines.push(`- ${a}`)
+	}
+
 	return lines.join('\n')
+}
+
+const SITE_HINTS: Record<string, string> = {
+	'Medium': 'This is a blogging platform. The submission form is a story editor. Fill the title with the product name and the body with an adapted version of the long description formatted as a blog post with paragraphs.',
+	'Product Hunt': 'This is a product launch platform. Fill the product name, tagline, URL, and description. The description should be punchy and community-oriented. Topics/tags should match the product category.',
+	'G2': 'This is a software review platform. Fill product name, URL, and description. Categories should match software categories. You may need to select a product type from a dropdown.',
+	'Crunchbase': 'This is a company database. Fill company name, URL, description, categories, and founder info. Select the appropriate company type and stage from dropdowns.',
+	'SourceForge': 'This is an open-source software directory. Fill project name, URL, description, and tags. Select appropriate categories from dropdowns.',
+	'Behance': 'This is a creative portfolio platform. Fill project name, description, and tags. The description should be creative-oriented.',
+	'Issuu': 'This is a digital publishing platform. Fill publication title, description, and tags.',
+	'GitHub': 'This is a code hosting platform. If the form is an Awesome List submission, fill the repository URL and a short description.',
+	'Dev.to': 'This is a developer blogging platform. Fill the title with the product name and the body with a technical-oriented article about the product.',
+	'HackerNews': 'This is a news aggregator. Fill the title with a concise product description and the URL. Keep the title under 80 characters.',
+}
+
+export function getSiteHints(siteName: string): string {
+	const hint = SITE_HINTS[siteName]
+	if (!hint) return ''
+	return `\n**Site-specific hint for ${siteName}:**\n${hint}\n`
 }

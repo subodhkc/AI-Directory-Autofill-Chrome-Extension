@@ -85,7 +85,9 @@ When you encounter obstacles, follow these strategies in order:
 1. Check if there is a way to bypass the login (e.g. "Continue as guest", "Skip", close a modal overlay).
 2. If the page shows a login form with no bypass, look for social login buttons (Google, GitHub, Apple, etc.) and try clicking them to log in via OAuth. Prefer Google or GitHub login when available.
 3. If social login is attempted, wait for the OAuth redirect to complete, then re-observe the page. If the login succeeds and the submission form appears, continue filling it.
-4. If no social login options are available, or if social login fails (e.g. the OAuth page requires manual credential input, times out, or shows an error), call `done` with success=false and tell the user they need to log in first, then retry.
+4. If no social login options are available, or if social login fails (e.g. the OAuth page requires manual credential input, times out, or shows an error), use `wait` (10 seconds) and re-observe. The user may be logging in manually in another tab or in the current tab.
+5. Repeat the `wait` and re-observe cycle up to 5 times (50 seconds total). After each wait, check if the page has changed from the login form to the submission form.
+6. If after 5 wait cycles the page is still on the login form, call `done` with success=false and include "login required" in your message so the user knows to log in and then click "Retry on current tab".
 
 ## Cloudflare / Security Check
 1. If you see a Cloudflare challenge page, "Checking your browser", or similar verification, use `wait` (3-5 seconds) and re-observe.

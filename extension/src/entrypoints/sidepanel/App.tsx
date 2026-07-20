@@ -124,6 +124,20 @@ export default function App() {
 							setAgentError(err instanceof Error ? err.message : String(err))
 						}
 					}}
+					onRetryOnCurrentTab={async () => {
+										setAgentError(null)
+										reset()
+										try {
+											const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+											const tabUrl = tab?.url ?? view.site.submit_url ?? ''
+											const result = await startSubmissionOnCurrentTab(activeProduct!, tabUrl)
+											if (result.success) {
+												markSubmitted(view.site.name, activeProduct!.id)
+											}
+										} catch (err) {
+											setAgentError(err instanceof Error ? err.message : String(err))
+										}
+									}}
 					onStop={stop}
 					onBack={() => { reset(); setAgentError(null); setView({ name: 'dashboard' }) }}
 					onMarkSubmitted={() => markSubmitted(view.site.name, activeProduct!.id)}

@@ -238,7 +238,7 @@ export class TabsController extends EventTarget {
 		if (tab.status === 'complete') return
 
 		debug('waitUntilTabLoaded', tabId)
-		await waitUntil(() => tab.status === 'complete', 4_000)
+		await waitUntil(() => tab.status === 'complete', 10_000)
 	}
 
 	dispose() {

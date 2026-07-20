@@ -1,5 +1,6 @@
 import { initPageController } from '@/agent/RemotePageController.content'
 import { initFloatButton } from '@/agent/FloatButton.content'
+import { initClickToFill } from '@/agent/ClickToFill.content'
 import { getFloatButtonEnabled } from '@/lib/storage'
 
 export default defineContentScript({
@@ -11,5 +12,6 @@ export default defineContentScript({
 		initPageController()
 		const enabled = await getFloatButtonEnabled()
 		initFloatButton(enabled)
+		initClickToFill()
 	},
 })
