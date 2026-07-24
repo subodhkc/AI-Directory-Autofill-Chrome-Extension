@@ -1,15 +1,11 @@
 # Submit Agent
 
-[English](README.md) | [中文](README_CN.md)
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 > A browser extension that uses AI to auto-fill product submission forms on directory sites. You provide your product info once; the agent fills every form for you.
 
 ---
 
-https://github.com/user-attachments/assets/c2cf752c-349a-441f-b59c-d3114cf8cee2
+
 
 ## The problem
 
@@ -46,7 +42,7 @@ Submit Agent can compress that to about 2 hours.
 
 ### From release (recommended)
 
-1. Download the latest `.zip` from [Releases](https://github.com/beanu/submit-agent/releases).
+1. Download the latest `.zip` from 
 2. Unzip it.
 3. Open Chrome → `chrome://extensions` → turn on **Developer mode** (top right).
 4. Click **Load unpacked** → select the unzipped folder.
