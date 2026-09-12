@@ -4245,4 +4245,16 @@
       "notes": "技术博客平台,可发布文章获取外链"
     }
   ]
-}
+},
+    {
+      "name": "SaaSCity",
+      "submit_url": "https://saascity.io/submit",
+      "category": "Startup & Product Directories",
+      "lang": "en",
+      "dr": 64,
+      "monthly_traffic": "200",
+      "pricing": "Free",
+      "status": "alive",
+      "notes": "Gamified SaaS directory — every listing becomes a building on a live isometric city map"
+    }
+  
